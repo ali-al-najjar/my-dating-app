@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -13,7 +14,8 @@ class RegisterController extends Controller
         $user->first_name = $request -> first_name ;
         $user->last_name = $request -> last_name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $hashed_password = Hash::make($request->password);
+        $user->password = $hashed_password;
         $user->save();
 
 
