@@ -3,48 +3,38 @@ const letsdate_pages = {};
 letsdate_pages.base_url = "http://127.0.0.1:8000/api/v0.0.1/";
 
 letsdate_pages.getAPI = async (api_url) => {
-    try{
-        return await axios(api_url);
-    }catch(error){
-        console.log("Error from GET API");
-    }
-}
+  try{
+    return await axios(api_url);
+  }catch(error){
+    console.log("Error from GET API");}}
 
 letsdate_pages.postAPI = async (api_url, api_data, api_token) => {
-    try{
-        return await axios.post(
-            api_url,
-            api_data,{
-              'Authorization' : "token " + api_token
-            }
-
-        );
+  try{
+    return await axios.post(
+      api_url,
+      api_data,{
+        'Authorization' : "token " + api_token});
     }catch(error){
-        console.log("Error from POST API");
-    }
-}
+      console.log("Error from POST API");}}
+
 
 letsdate_pages.loadFor = (page) => {
-    eval("letsdate_pages.load_" + page + "();");
-}
+    eval("letsdate_pages.load_" + page + "();");}
 
 
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+  return emailRegex.test(email);}
 
 const isValidPassword = (password) => {
   const emailRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  return emailRegex.test(password);
-}
+  return emailRegex.test(password);}
 
 const isValid = (text) => {
   if (text.trim().length === 0) {
     return false;
       }
-    else return true;
-    }
+    else return true;}
 
 
 letsdate_pages.load_login = () => {
@@ -60,17 +50,15 @@ letsdate_pages.load_login = () => {
 
     if (isValidEmail(email) && isValidPassword(password)){
         const response = await letsdate_pages.postAPI(login_url,data);
-        window.localStorage.setItem("token",response.data.token);
-
-      }else{
+        window.localStorage.setItem("token",response.data.token);}
+    else{
         error.style.display="flex";
-        error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"
-      }}
+        error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"}}
 
     const login_btn = document.getElementById("login_btn");
     login_btn.addEventListener("click",login);
-
 }
+
 
 
 letsdate_pages.load_register = () => {
@@ -94,19 +82,16 @@ letsdate_pages.load_register = () => {
         if (isValidEmail(email)){
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
-          console.log(response.data);
-          
-        }else{
-          error.style.display="flex";
-          error.innerHTML="<img src=../assets/error.svg> Your password must contain at least: <ul><li>8 characters</li><li>1 Special charachter</li><li>1 Capital letter & 1 Small letter</li><li>1 number</li> "
-        }}else{
-          error.style.display="flex";
-        error.innerHTML="<img src=../assets/error.svg>  Your email is not valid try another one!"
-      }}else{
-        error.style.display="flex";
-        error.innerHTML="<img src=../assets/error.svg>  No Empty Fields are allowed!"
-      }
-}
+          console.log(response.data);}
+        else{
+            error.style.display="flex";
+            error.innerHTML="<img src=../assets/error.svg> Your password must contain at least: <ul><li>8 characters</li><li>1 Special charachter</li><li>1 Capital letter & 1 Small letter</li><li>1 number</li> "}}
+        else{
+            error.style.display="flex";
+            error.innerHTML="<img src=../assets/error.svg>  Your email is not valid try another one!"}}
+        else{
+            error.style.display="flex";
+            error.innerHTML="<img src=../assets/error.svg>  No Empty Fields are allowed!"}}
 
     const register_btn = document.getElementById("register_btn");
     register_btn.addEventListener("click",register);
