@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,6 +17,8 @@ use App\Http\Controllers\LoginController;
 
 Route::group(["prefix" => "v0.0.1"],function(){
     Route::post('/login',[LoginController::class,"login"]);
+    Route::post('/register',[RegisterController::class,"register"]);
+
 });
 
 
