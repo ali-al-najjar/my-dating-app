@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="icon" type="image/x-icon" href="./assets/logo.svg">
+</head>
+<body>
+<navbar class="navigation">
+  <div class = "logo"><img src="./assets/logo.svg">Let's Date</div>
+  <a class="home" href="./index.html">Home</a>
+  <a class="home" href="./pages/register.html">Register</a>
+</navbar>
+<div class="form">
+  <h1 class="heading">Kindly login to proceed!</h1>
+  <input type="email" class = "email" id ="email" placeholder="Enter your email address" required>
+  <input type="password" class = "password" id ="password" placeholder="Enter your password" required>
+  <div id="error"></div>
+  <button class="login_button btn" id="login_btn">Login</button>
+  <p class="register_link">Don't have an account? <a href="./pages/register.html">Register here</a>.</p>
+</div>
+
+
+
+<script src="./js/axios.min.js"></script>
+<script src ="./js/scripts.js"></script>
+<script>
+  letsdate_pages.loadFor("login");
+</script>
+</body>
+</html>
