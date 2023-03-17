@@ -53,6 +53,8 @@ letsdate_pages.load_login = () => {
         window.localStorage.setItem("token",response.data.token);}
     else{
         error.style.display="flex";
+        error.style.animation="bounce";
+        error.style.animationDuration="0.5s";
         error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"}}
 
     const login_btn = document.getElementById("login_btn");
@@ -82,18 +84,34 @@ letsdate_pages.load_register = () => {
         if (isValidEmail(email)){
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
-          console.log(response.data);}
+          console.log(response.data);
+        
+        if (response.data.success == false){
+            error.style.display="flex";
+            error.style.animation="bounce";
+            error.style.animationDuration="0.5s";
+            error.innerHTML="<img src=../assets/error.svg> This email is already registered"}}
+
         else{
             error.style.display="flex";
             error.innerHTML="<img src=../assets/error.svg> Your password must contain at least: <ul><li>8 characters</li><li>1 Special charachter</li><li>1 Capital letter & 1 Small letter</li><li>1 number</li> "}}
+
         else{
             error.style.display="flex";
             error.innerHTML="<img src=../assets/error.svg>  Your email is not valid try another one!"}}
+
         else{
             error.style.display="flex";
+            error.style.animation="bounce";
+            error.style.animationDuration="0.5s";
             error.innerHTML="<img src=../assets/error.svg>  No Empty Fields are allowed!"}}
 
+
     const register_btn = document.getElementById("register_btn");
-    register_btn.addEventListener("click",register);
+    register_btn.addEventListener("click", (e) =>{
+      e.preventDefault();
+      register();
+    });
+
 }
 

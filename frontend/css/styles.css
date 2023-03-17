@@ -111,16 +111,6 @@ h1.heading {
     font-size:2em;
 }
 
-.user_types{
-  font-size:1em;
-}
-.user_types label{
-  font-size:2em;
-}
-.user_types select{
-  font-size:1.5em;
-  padding: 0;
-}
 
 #error {
   display: flex;
@@ -131,81 +121,16 @@ h1.heading {
   font-weight:bold;
   margin-top:2%;
   display:none;
+
 }
 
 #error img {
   width: 10%;
 }
 
-.users_table {
-gap:0;
 
-}
-
-.assign_btn {
-  margin: 0;
-}
-
-.assign_btn:hover {
-  margin: 0;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  border: 1px solid var(--green);
-  padding: 1% 2%;
-  margin-left: auto;
-  margin-right: auto;
-  width:100%;
-  align-items: center;
-}
-
-select {
-  padding: 5%;
-}
-.info {
-  font-size: 0.8em;
-  color: var(--green);
-  width: fit-content;
-}
-
-
-.accordion {
-  background-color: var(--blue);
-  color: white;
-  font-size: 1.5em;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  transition: 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: var(--green);
-}
-
-.panel {
-  padding: 2%;
-  display: none;
-  background-color: var(--lightgray);
-  overflow: initial;
-}
-
-select#dropdown_patient {
-  padding: 0;
-  font-size: 1.2em;
-}
-
-.submit_btn{
-  margin-top: 0%;
-  margin-bottom: 0%;}
-
-  .submit_btn:hover {
-    margin-top: 0%;
-    margin-bottom: 0%;
+@keyframes bounce { 
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+  40% {transform: translateY(-15px);} 
+  60% {transform: translateY(-15px);} 
 }
