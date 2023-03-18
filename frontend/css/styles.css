@@ -23,11 +23,13 @@ html *{
   justify-content: space-between;
   align-items: center;
   padding: 0 1%;
+  height:100px;
 }
 
 .navigation a{
   font-size:1.2em;
   text-decoration:none;
+  
 }
 
 .logo img {
@@ -55,7 +57,8 @@ html *{
   padding: 2%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+  margin-top: 4%;
+  margin-bottom: 4%;
   border: 4px solid var(--red);
   border-radius: 10px;
   box-shadow: 0px 0px 30px 0px var(--red);
@@ -160,3 +163,39 @@ input:not(:focus):valid ~ .floating-label {
   border-radius: 5px;
   color: var(--blue);
 	}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+}
+
+.gender_section {
+  font-size: 20px;
+  margin-bottom: 2%;
+} 
+
+.checkboxes_label {
+  color: var(--blue);
+  margin-bottom: 1%;
+  font-weight: normal;
+}
+
+.profile_label {
+  color: var(--blue);
+  margin-bottom: 1%;
+  font-weight: normal;
+}
+
+textarea#description {
+  font-size: 1em;
+  padding: 1%;
+  border-radius: 10px;
+  border: 2px solid var(--black);
+  opacity: 0.8;
+  margin-bottom: 2%;
+}
+
+input[type="file"] {
+  font-size: 1em;
+  margin-bottom: 2%;
+}

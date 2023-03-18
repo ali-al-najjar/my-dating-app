@@ -15,17 +15,24 @@
 </navbar>
 <div class="container">
   <h1 class="heading">Kindly complete your profile</h1>
-  <input type="text" class = "gender" id ="gender" placeholder=" ">
-  <div class="floating-label-group">
-    <input type="text" id="username" class="form-control" required />
-      <label class="floating-label">Username</label>
+  <h3 class="checkboxes_label">Specify your gender</h3>
+  <div class="gender_section">
+      <input type="radio" class = "male" id ="male" name ="gender_checkbox" value="male">
+      <label for="male">Male</label>
+      <input type="radio" class = "female" id ="female" name ="gender_checkbox" value="female">
+      <label for="female">Female</label>
   </div>
-  <input type="text" class = "last_name" id ="last_name" placeholder="Enter your last name">
-  <input type="email" class = "email" id ="email" placeholder="Enter your email address">
-  <input type="password" class = "password" id ="password" placeholder="Enter your password">
-<div id="error"></div>
-  <div class="login_button btn" id="register_btn">Register</div>
-  <p class="register_link">Already have an account? <a href="../index.html">Login here</a>.</p>
+
+  <h3 for="description" class="profile_label">Describe yourself</h3>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+  <h3 for="profile_pic" class="profile_label">Choose your profile picture</h3>
+    <input type="file" class = "profile_pic" id ="profile_pic" name="profile_pic" accept="image/*">
+
+  <h3 for="other_pics" class="profile_label">Choose 3 other pictures</h3>
+    <input type="file" class = "other_pics" id ="other_pics" name="other_pics" accept="image/*"" multiple>
+
+  <div class="complete_button btn" id="complete_btn">Complete</div>
 </div>
 
 

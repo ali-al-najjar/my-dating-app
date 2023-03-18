@@ -59,15 +59,10 @@ letsdate_pages.load_login = () => {
           error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"}
         else{
           window.localStorage.setItem("token",response.data["authorisation"].token);
-          // console.log(response.data["authorisation"].token);
-          window.location.href="../frontend/pages/complete_profile.html";
           error.style.display="none";
         }
       }
         
-        // window.localStorage.setItem("status",response.status);
-      // console.log(response);
-      // console.log(response.data["authorisation"].token)
     else{
         error.style.display="flex";
         error.style.animation="bounce";
@@ -104,7 +99,10 @@ letsdate_pages.load_register = () => {
         if (isValidEmail(email)){
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
-          console.log(response.data["authorisation"].token);
+          window.localStorage.setItem("token",response.data["authorisation"].token);
+          // console.log(response.data["authorisation"].token);
+          window.location.href="./complete_profile.html";
+          error.style.display="none";
         
         if (response.data.success == false){
             error.style.display="flex";
