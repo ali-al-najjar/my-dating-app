@@ -1,6 +1,9 @@
 const letsdate_pages = {};
 
-letsdate_pages.base_url = "http://127.0.0.1:8000/api/v0.0.1/";
+// ,{
+//   'Authorization' : "token " + api_token});
+// , api_token
+letsdate_pages.base_url = "http://127.0.0.1:8000/api/";
 
 letsdate_pages.getAPI = async (api_url) => {
   try{
@@ -8,12 +11,12 @@ letsdate_pages.getAPI = async (api_url) => {
   }catch(error){
     console.log("Error from GET API");}}
 
-letsdate_pages.postAPI = async (api_url, api_data, api_token) => {
+letsdate_pages.postAPI = async (api_url, api_data) => {
   try{
     return await axios.post(
       api_url,
-      api_data,{
-        'Authorization' : "token " + api_token});
+      api_data)
+
     }catch(error){
       console.log("Error from POST API");}}
 
@@ -50,7 +53,7 @@ letsdate_pages.load_login = () => {
 
     if (isValidEmail(email) && isValidPassword(password)){
         const response = await letsdate_pages.postAPI(login_url,data);
-        window.localStorage.setItem("token",response.data.token);}
+        window.localStorage.setItem("status",response.status);}
     else{
         error.style.display="flex";
         error.style.animation="bounce";
@@ -68,19 +71,19 @@ letsdate_pages.load_register = () => {
   const register = async() =>{
 
     const register_url = letsdate_pages.base_url + "register";
-    let first_name = document.getElementById("first_name").value;
+    let name = document.getElementById("first_name").value;
     let last_name = document.getElementById("last_name").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let error = document.getElementById("error");
 
     let data = new FormData();
-      data.append('first_name',first_name);
+      data.append('name',name);
       data.append('last_name',last_name);
       data.append('email', email);
       data.append('password', password);
 
-      if(isValid(first_name) && isValid(last_name)){
+      if(isValid(name) && isValid(last_name)){
         if (isValidEmail(email)){
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
