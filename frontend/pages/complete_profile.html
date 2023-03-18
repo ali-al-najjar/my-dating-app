@@ -15,9 +15,11 @@
 </navbar>
 <div class="container">
   <h1 class="heading">Kindly complete your profile</h1>
-  <label>
   <input type="text" class = "gender" id ="gender" placeholder=" ">
-  <span>Enter your first name</span></label>
+  <div class="floating-label-group">
+    <input type="text" id="username" class="form-control" required />
+      <label class="floating-label">Username</label>
+  </div>
   <input type="text" class = "last_name" id ="last_name" placeholder="Enter your last name">
   <input type="email" class = "email" id ="email" placeholder="Enter your email address">
   <input type="password" class = "password" id ="password" placeholder="Enter your password">

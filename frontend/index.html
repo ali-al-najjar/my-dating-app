@@ -14,16 +14,23 @@
   <a class="home" href="./index.html">Home</a>
   <a class="home" href="./pages/register.html">Register</a>
 </navbar>
+
 <div class="container">
   <h1 class="heading">Kindly login to proceed!</h1>
-  <input type="email" class = "email" id ="email" placeholder="Enter your email address" required>
-  <input type="password" class = "password" id ="password" placeholder="Enter your password" required>
+  <div class="floating-label-group">
+    <input type="email" class = "email" id ="email" required>
+    <label class="floating-label">Enter your email address</label>
+  </div>
+
+  <div class="floating-label-group">
+    <input type="password" class = "password" id ="password" required>
+    <label class="floating-label">Enter your password</label>
+  </div>
+
   <div id="error"></div>
   <div class="login_button btn" id="login_btn">Login</div>
   <p class="register_link">Don't have an account? <a href="./pages/register.html">Register here</a>.</p>
 </div>
-
-
 
 <script src="./js/axios.min.js"></script>
 <script src ="./js/scripts.js"></script>
