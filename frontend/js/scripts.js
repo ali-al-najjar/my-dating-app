@@ -1,8 +1,5 @@
 const letsdate_pages = {};
 
-// ,{
-//   'Authorization' : "token " + api_token});
-// , api_token
 letsdate_pages.base_url = "http://127.0.0.1:8000/api/";
 
 letsdate_pages.getAPI = async (api_url) => {
@@ -18,7 +15,7 @@ letsdate_pages.postAPI = async (api_url, api_data) => {
       api_data)
 
     }catch(error){
-      console.log("Error from POST API");}}
+      return error.response["statusText"];}}
 
 
 letsdate_pages.loadFor = (page) => {
@@ -41,10 +38,12 @@ const isValid = (text) => {
 
 
 letsdate_pages.load_login = () => {
+  
   const login = async() =>{
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let error = document.getElementById("error");
+
     const login_url = letsdate_pages.base_url + "login";
 
     let data = new FormData();
@@ -53,7 +52,22 @@ letsdate_pages.load_login = () => {
 
     if (isValidEmail(email) && isValidPassword(password)){
         const response = await letsdate_pages.postAPI(login_url,data);
-        window.localStorage.setItem("status",response.status);}
+        if (response == "Unauthorized"){
+          error.style.display="flex";
+          error.style.animation="bounce";
+          error.style.animationDuration="0.5s";
+          error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"}
+        else{
+          window.localStorage.setItem("token",response.data["authorisation"].token);
+          // console.log(response.data["authorisation"].token);
+          window.location.href="../frontend/pages/complete_profile.html";
+          error.style.display="none";
+        }
+      }
+        
+        // window.localStorage.setItem("status",response.status);
+      // console.log(response);
+      // console.log(response.data["authorisation"].token)
     else{
         error.style.display="flex";
         error.style.animation="bounce";
@@ -61,7 +75,10 @@ letsdate_pages.load_login = () => {
         error.innerHTML="<img src=./assets/error.svg>  Wrong Email OR Password!"}}
 
     const login_btn = document.getElementById("login_btn");
-    login_btn.addEventListener("click",login);
+    login_btn.addEventListener("click",(e)=>{
+        e.preventDefault();
+        login();
+   });
 }
 
 
@@ -87,7 +104,7 @@ letsdate_pages.load_register = () => {
         if (isValidEmail(email)){
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
-          console.log(response.data);
+          console.log(response.data["authorisation"].token);
         
         if (response.data.success == false){
             error.style.display="flex";
