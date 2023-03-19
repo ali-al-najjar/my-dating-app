@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -61,4 +62,8 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function detail(): HasOne
+    {
+        return $this->hasOne(Detail::class);
+    }
 }

@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersInformationTable extends Migration
+class CreateDetailsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('users_information', function (Blueprint $table) {
+        Schema::create('details', function (Blueprint $table) {
             $table->id();
             $table->boolean("gender");
             $table->longText("description");

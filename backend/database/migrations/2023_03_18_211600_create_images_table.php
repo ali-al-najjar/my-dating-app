@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserImagesTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,7 @@ class CreateUserImagesTable extends Migration
     public function up(): void
     {
         Schema::create('user_images', function (Blueprint $table) {
-            $table->foreignId('user_id')
-            ->constrained('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->id();
             $table->string('first_image');
             $table->string('second_image');
             $table->string('third_image');
