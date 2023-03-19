@@ -199,3 +199,12 @@ input[type="file"] {
   font-size: 1em;
   margin-bottom: 2%;
 }
+
+#location {
+  color: var(--black);
+  margin-bottom: 1%;
+  font-weight: normal;
+  
+  padding: 1%;
+  opacity: 0.8;
+}

@@ -1,5 +1,22 @@
 const letsdate_pages = {};
 
+let user_token=localStorage.getItem("token");
+
+let headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer ' + user_token
+}
+
+letsdate_pages.authPostAPI = async (api_url) => {
+  try{
+    return await axios.post(
+      api_url,
+      null,{
+      headers:headers})
+
+    }catch(error){
+      return error.response["statusText"];}}
+
 letsdate_pages.base_url = "http://127.0.0.1:8000/api/";
 
 letsdate_pages.getAPI = async (api_url) => {
@@ -100,7 +117,7 @@ letsdate_pages.load_register = () => {
         if(isValidPassword(password)){
           const response = await letsdate_pages.postAPI(register_url,data);
           window.localStorage.setItem("token",response.data["authorisation"].token);
-          // console.log(response.data["authorisation"].token);
+          // console.log(response);
           window.location.href="./complete_profile.html";
           error.style.display="none";
         
@@ -108,7 +125,8 @@ letsdate_pages.load_register = () => {
             error.style.display="flex";
             error.style.animation="bounce";
             error.style.animationDuration="0.5s";
-            error.innerHTML="<img src=../assets/error.svg> This email is already registered"}}
+            error.innerHTML="<img src=../assets/error.svg> This email is already registered"}
+          }
 
         else{
             error.style.display="flex";
@@ -133,3 +151,75 @@ letsdate_pages.load_register = () => {
 
 }
 
+letsdate_pages.load_complete_profile = () => {
+  const profile_details_url = letsdate_pages.base_url + "user_details";
+  const user_id_url = letsdate_pages.base_url + "get_user";
+  const male = document.getElementById('male');
+  const female = document.getElementById('female');
+  const description = document.getElementById('description');
+  const profile_pic = document.getElementById('profile_pic');
+  const location_btn = document.getElementById("btn_location");
+  const complete_btn = document.getElementById("complete_btn");
+
+  const description_data = () =>{return description.value;}
+
+  const gender = () =>{
+    if (male.checked == true){
+      return male.value;}
+    else if(female.checked == true){
+      return female.value;}
+    else{
+      return "";}}
+
+  const location = document.getElementById("location");
+
+  const userLocation = async () => {
+    if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition);}
+    else {
+      location.innerHTML = "Geolocation is not supported by this browser.";}
+  }
+
+  location_btn.addEventListener("click", userLocation);
+
+  const showPosition = async (position) =>{
+    lat=position.coords.latitude;
+    lon=position.coords.longitude;
+    await getLocation(lat,lon);
+    
+  }
+
+  let lat=GeolocationCoordinates.latitude;
+  let lon=GeolocationCoordinates.longitude;
+
+  const getLocation  = async (lat,lon) =>{
+    let access_key= "pk.a87f7910165b829681a03e71f7aecf29" ;
+    
+    let locations_map_url=`https://eu1.locationiq.com/v1/reverse?key=${access_key}&lat=${lat}&lon=${lon}&format=json`;
+    const response = await letsdate_pages.getAPI(locations_map_url);
+    const city = response.data.address.city;
+    location.innerHTML=`Your location is ${city}`;
+    location.style.border="2px solid var(--blue)";
+    return city;
+  }
+  
+  complete_btn.addEventListener("click",async ()=>{
+    // console.log(gender());
+    // console.log(description_data());
+    // console.log(profile_pic.files[0]);
+    // console.log(await getLocation(lat,lon));
+    // console.log(window.localStorage.getItem("token"));
+    // token = window.localStorage.getItem("token");
+    const response = await letsdate_pages.authPostAPI(user_id_url);
+    console.log(response.data.user.id)
+
+//  location.innerHTML= getUserInfo();
+    
+  // let data = new FormData();
+  //       data.append('name',name);
+  //       data.append('last_name',last_name);
+  //       data.append('email', email);
+  //       data.append('password', password);
+
+  })
+}

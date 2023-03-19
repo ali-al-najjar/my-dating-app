@@ -26,11 +26,14 @@
   <h3 for="description" class="profile_label">Describe yourself</h3>
     <textarea id="description" name="description" rows="4" cols="50"></textarea>
 
+  <button id="btn_location" class="btn">Get your location</button>
+  <p id="location"></p>
+  
   <h3 for="profile_pic" class="profile_label">Choose your profile picture</h3>
     <input type="file" class = "profile_pic" id ="profile_pic" name="profile_pic" accept="image/*">
-
+<!-- 
   <h3 for="other_pics" class="profile_label">Choose 3 other pictures</h3>
-    <input type="file" class = "other_pics" id ="other_pics" name="other_pics" accept="image/*"" multiple>
+    <input type="file" class = "other_pics" id ="other_pics" name="other_pics" accept="image/*"" multiple> -->
 
   <div class="complete_button btn" id="complete_btn">Complete</div>
 </div>
@@ -40,7 +43,7 @@
 <script src="../js/axios.min.js"></script>
 <script src ="../js/scripts.js"></script>
 <script>
-  letsdate_pages.loadFor("register");
+  letsdate_pages.loadFor("complete_profile");
 </script>
 </body>
 </html>
