@@ -4,21 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailsTable extends Migration
+class ChangeOrderDetailsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('details', function (Blueprint $table) {
-            $table->id();
-            $table->boolean("gender");
-            $table->longText("description");
-            $table->string("profile_pic");
-            $table->string("location");
-            $table->timestamps();
+        Schema::table('details', function (Blueprint $table) {
+            $table->dropColumn(['created_at', 'updated_at']);
         });
+
     }
 
     /**
