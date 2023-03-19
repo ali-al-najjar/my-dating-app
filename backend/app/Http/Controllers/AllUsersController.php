@@ -15,7 +15,7 @@ class AllUsersController extends Controller
         ]);
     }
 
-    function getUser($id){
+    function getUserById($id){
         $user = User::find($id);
         return response()->json([
             "User" => $user
@@ -27,7 +27,7 @@ class AllUsersController extends Controller
     function addUserDetails(Request $request,$id){
         $new_profile_pic = time() . '-' .$request->profile_pic . '.' . $request->profile_pic->extension();
         $request->profile_pic->move(public_path('images'),$new_profile_pic);
-        
+
             $user = User::find($id); 
             $detail = new Detail;
             $detail->gender = $request->gender;
@@ -41,6 +41,8 @@ class AllUsersController extends Controller
                 "success" => true
             ]);
         }
+
+
         
     }
 

@@ -9,11 +9,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('get_user','getUser');
 
 });
 
     Route::get('/users', [AllUsersController::class, "getAllUsers"]);
-    Route::get('/user/{id}', [AllUsersController::class, "getUser"]);
+    Route::get('/user/{id}', [AllUsersController::class, "getUserById"]);
     Route::post('/user_details/{id}', [AllUsersController::class, "addUserDetails"]);
 
 

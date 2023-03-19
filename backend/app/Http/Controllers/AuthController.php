@@ -88,4 +88,21 @@ class AuthController extends Controller
         ]);
     }
 
+    // public function getUser(Request $request)
+    // {
+    //     // $this->validate($request, [
+    //     //     'token' => 'required'
+    //     // ]);
+    //     $user = Auth::authenticate($request->token);
+    //     return response()->json(['id' => $user->id]);
+    // }
+    public function getUser()
+    {
+        $user = Auth::user();
+        return response()->json([
+            'status' => 'success',
+            'user' => $user
+        ], 200);
+    }
+
 }
