@@ -14,7 +14,8 @@ Route::controller(AuthController::class)->group(function () {
 });
 
     Route::get('/users', [AllUsersController::class, "getAllUsers"]);
-    Route::get('/allusers', [AllUsersController::class, "getAllUsersDetails"]);
+    Route::get('/allfemaleusers', [AllUsersController::class, "getAllFemaleDetails"]);
+    Route::get('/allmaleusers', [AllUsersController::class, "getAllMaleDetails"]);
     Route::get('/user/{id}', [AllUsersController::class, "getUserById"]);
     Route::post('/user_details/{id}/{detail_id}', [AllUsersController::class, "addUserDetails"]);
 

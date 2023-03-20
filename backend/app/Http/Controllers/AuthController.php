@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -92,6 +93,8 @@ class AuthController extends Controller
     public function getUser()
     {
         $user = Auth::user();
+        $member = User::find($user->id);
+        $gender = $user->detail->gender;
         return response()->json([
             'status' => 'success',
             'user' => $user

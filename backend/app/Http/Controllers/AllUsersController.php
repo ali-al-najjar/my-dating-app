@@ -17,10 +17,21 @@ class AllUsersController extends Controller
         ]);
     }
 
-    function getAllUsersDetails(){
+    function getAllFemaleDetails(){
         $users = DB::table('users')
         ->join('details', 'users.id', '=', 'details.user_id')
-        ->select('users.id','users.name','users.last_name','details.gender','details.description','details.profile_pic','details.location')
+        ->select('users.id','users.name','users.last_name','details.gender','details.description','details.profile_pic','details.location','details.date_of_birth')
+        ->where('details.gender','=','female')
+        ->get();
+        return response()->json([
+            "users" => $users
+        ]);
+    }
+    function getAllMaleDetails(){
+        $users = DB::table('users')
+        ->join('details', 'users.id', '=', 'details.user_id')
+        ->select('users.id','users.name','users.last_name','details.gender','details.description','details.profile_pic','details.location','details.date_of_birth')
+        ->where('details.gender','=','male')
         ->get();
         return response()->json([
             "users" => $users
@@ -56,6 +67,7 @@ class AllUsersController extends Controller
             $detail->description = $request->description;
             $detail->profile_pic = 'http://127.0.0.1:8000/storage/images/'. $profile_pic_name;
             $detail->location = $request->location;
+            $detail->date_of_birth = $request->age;
             $detail->user_id = $user->id;
             $detail->save();
     
