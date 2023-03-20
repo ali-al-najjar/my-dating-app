@@ -15,7 +15,7 @@ Route::controller(AuthController::class)->group(function () {
 
     Route::get('/users', [AllUsersController::class, "getAllUsers"]);
     Route::get('/user/{id}', [AllUsersController::class, "getUserById"]);
-    Route::post('/user_details/{id}', [AllUsersController::class, "addUserDetails"]);
+    Route::post('/user_details/{id}/{detail_id}', [AllUsersController::class, "addUserDetails"]);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

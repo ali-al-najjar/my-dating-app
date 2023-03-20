@@ -25,7 +25,12 @@ class AllUsersController extends Controller
 
     
 
-    function addUserDetails(Request $request,$id){
+    function addUserDetails(Request $request,$id,$id_detail){
+        if($id_detail == "add"){
+            $detail = new Detail;
+        }else{
+            $detail = Detail::find($id_detail);
+        }
         $user = User::find($id); 
         $extension = $request->image_extension;
         $profile_pic = $request->profile_pic_encoded;  // your base64 encoded
@@ -35,7 +40,7 @@ class AllUsersController extends Controller
         $profile_pic_name = time() . '-' .$user->name . '.' . $extension;
         Storage::disk('public')->put('images/'. $profile_pic_name,$image);
 
-            $detail = new Detail;
+            
             $detail->gender = $request->gender;
             $detail->description = $request->description;
             $detail->profile_pic = 'images/'. $profile_pic_name;
