@@ -249,7 +249,7 @@ complete_btn.addEventListener("click",async ()=>{
           data.append('profile_pic_encoded', profile_pic_encoded);
           data.append('location', city);
         
-          const response = await letsdate_pages.postAPI(`${profile_details_url}/${user_id}`,data);
+          const response = await letsdate_pages.postAPI(`${profile_details_url}/${user_id}/add`,data);
           console.log(response);
 
         }

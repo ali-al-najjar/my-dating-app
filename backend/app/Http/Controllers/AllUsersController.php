@@ -6,11 +6,21 @@ use App\Models\Detail;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AllUsersController extends Controller
 {
     function getAllUsers(){
         $users = User::all();
+        return response()->json([
+            "users" => $users
+        ]);
+    }
+
+    function getAllUsersDetails(){
+        $users = DB::table('users')
+        ->join('details', 'users.id', '=', 'details.user_id')
+        ->get();
         return response()->json([
             "users" => $users
         ]);
