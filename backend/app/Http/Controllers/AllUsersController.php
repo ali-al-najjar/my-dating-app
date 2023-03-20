@@ -45,6 +45,14 @@ class AllUsersController extends Controller
         ]);
     }
 
+    function getUserGender($id){
+        $user = User::find($id);
+        $gender = $user->detail->gender;
+        return response()->json([
+            "user" => $user
+        ]);
+    }
+
     
 
     function addUserDetails(Request $request,$id,$id_detail){

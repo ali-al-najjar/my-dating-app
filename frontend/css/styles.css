@@ -289,3 +289,21 @@ img#profile_pic {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
+
+#name_filter {
+  font-size: 1em;
+  padding: 0.5%;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 80%;
+  margin-left: auto;
+  margin-top: 4%;
+  margin-right: auto;
+}

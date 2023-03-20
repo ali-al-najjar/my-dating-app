@@ -64,8 +64,8 @@ letsdate_pages.load_login = () => {
     let password = document.getElementById("password").value;
     const user_id_url = letsdate_pages.base_url + "get_user";
     const status = await letsdate_pages.authPostAPI(user_id_url);
-    const user_id = status.data.user.id
-    const user_gender= status.data.user.detail.gender
+    console.log(status)
+    const user_id = status.data.user.id;
 
     const login_url = letsdate_pages.base_url + "login";
 
@@ -163,7 +163,7 @@ letsdate_pages.load_register = () => {
 
 letsdate_pages.load_complete_profile = () => {
   const profile_details_url = letsdate_pages.base_url + "user_details";
-  const user_id_url = letsdate_pages.base_url + "get_user";
+  
   const male = document.getElementById('male');
   const female = document.getElementById('female');
   const description = document.getElementById('description');
@@ -241,9 +241,10 @@ complete_btn.addEventListener("click",async ()=>{
       const bio = description.value;
       const city = await getLocation(lat,lon);
       token = window.localStorage.getItem("token");
+      const user_id_url = letsdate_pages.base_url + "get_user";
       const status = await letsdate_pages.authPostAPI(user_id_url);
-      const user_id = status.data.user.id
-      dob_value = date.value
+      const user_id = status.data.user.id;
+      dob_value = date.value;
       dob = new Date(dob_value);
       const month_diff = Date.now() - dob.getTime();
       const age_dt = new Date(month_diff);
@@ -264,7 +265,9 @@ complete_btn.addEventListener("click",async ()=>{
           data.append('location', city);
           data.append('age',age);
           const response = await letsdate_pages.postAPI(`${profile_details_url}/${user_id}/add`,data);
-
+          if(response.data.success==true){
+            window.location.href="./users.html";
+          }
 
         }
 
@@ -376,7 +379,9 @@ complete_btn.addEventListener("click",async ()=>{
           data.append('location', city);
           data.append('age',age);
           const response = await letsdate_pages.postAPI(`${profile_details_url}/${user_id}/${detail_id}`,data);
-
+          if(response.data.success==true){
+            window.location.href="./users.html";
+          }
 
         }
 
@@ -384,49 +389,68 @@ complete_btn.addEventListener("click",async ()=>{
       })
 }
 
-      letsdate_pages.load_users = async() => {
-        const female_api = letsdate_pages.base_url + "allfemaleusers";
-        const male_api = letsdate_pages.base_url + "allmaleusers";
-        const users = document.querySelector('users_container');
-        const img = document.getElementById('profile_pic');
-        const user_id_url = letsdate_pages.base_url + "get_user";
-        const status = await letsdate_pages.authPostAPI(user_id_url);
-        const user_id = status.data.user.id
-        const user_gender= status.data.user.detail.gender
-
-        if(user_gender =="male"){
-        const response = await letsdate_pages.getAPI(female_api);
-        let data = response.data.users;
-        console.log(data);
-        data.forEach((item) => {
-        const markup =`<div class="card">
-        <img id ="profile_pic" src="${item.profile_pic}" alt="">
-        <div class="info_container">
-          <h4><b>${item.name}</b></h4> 
-          <p>${item.gender}</p>
-          <p>${item.date_of_birth}</p>
-        </div>
-        </div>`
-        const element = document.createRange().createContextualFragment(markup);
-        document.querySelector(".users_container").appendChild(element);
+letsdate_pages.load_users = async() => {
+  const female_api = letsdate_pages.base_url + "allfemaleusers";
+  const male_api = letsdate_pages.base_url + "allmaleusers";
+  const user_gender_api = letsdate_pages.base_url + "user_gender";
+  const users = document.querySelector('users_container');
+  const img = document.getElementById('profile_pic');
+  const user_id_url = letsdate_pages.base_url + "get_user";
+  const status = await letsdate_pages.authPostAPI(user_id_url);
+  const user_id = status.data.user.id;
+  const gender_info = await letsdate_pages.getAPI(`${user_gender_api}/${user_id}`);
+  console.log(gender_info);
+  let user_gender = gender_info.data.user.detail.gender;
+  if(user_gender =="male"){
+    const response = await letsdate_pages.getAPI(female_api);
+    let data = response.data.users;
+    data.forEach((item) => {
+      const markup =`<div class="card" id="card">
+      <img id ="profile_pic" src="${item.profile_pic}" alt="">
+      <div class="info_container">
+        <h4><b>${item.name}</b></h4> 
+        <p>${item.gender}</p>
+        <p>${item.date_of_birth}</p>
+      </div>
+      </div>`
+      const element = document.createRange().createContextualFragment(markup);
+      document.querySelector(".users_container").appendChild(element);
         })
 }
         
-        else{
-          const response = await letsdate_pages.getAPI(male_api);
-        let data = response.data.users;
-        data.forEach((item) => {
-        const markup =`<div class="card">
-        <img id ="profile_pic" src="${item.profile_pic}" alt="">
-        <div class="info_container">
-          <h4><b>${item.name}</b></h4> 
-          <p>${item.gender}</p>
-          <p>${item.date_of_birth}</p>
-        </div>
-        </div>`
-        const element = document.createRange().createContextualFragment(markup);
-        document.querySelector(".users_container").appendChild(element);})
+  else{
+    const response = await letsdate_pages.getAPI(male_api);
+    let data = response.data.users;
+    data.forEach((item) => {
+    const markup =`<div class="card" id="card">
+    <img id ="profile_pic" src="${item.profile_pic}" alt="">
+    <div class="info_container" id="info_container">
+      <h4><b>${item.name} ${item.last_name}</b></h4> 
+      <p>${item.gender}</p>
+      <p>${item.date_of_birth}</p>
+    </div>
+    </div>`
+    const element = document.createRange().createContextualFragment(markup);
+    document.querySelector(".users_container").appendChild(element);})
 }
+name_filter = document.querySelector(".name_filter");
+name_filter.addEventListener("keyup",()=>{
+  // var input, filter, ul, li, a, i, txtValue;
+  let input = document.getElementById("name_filter");
+  let filter = input.value.toUpperCase();
+  let card = document.getElementById("info_container");
+  let first_name = card.getElementsByTagName("h4");
+  for (i = 0; i < first_name.length; i++) {
+      h4 = first_name[i].getElementsByTagName("b")[0];
+      console.log(h4);
+      txtValue = h4.textContent || h4.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        first_name[i].style.display = "";
+      } else {
+        first_name[i].style.display = "none";
+      }
+  }
+})
       }
         
 

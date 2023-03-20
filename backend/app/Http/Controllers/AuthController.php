@@ -94,7 +94,6 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         $member = User::find($user->id);
-        $gender = $user->detail->gender;
         return response()->json([
             'status' => 'success',
             'user' => $user
