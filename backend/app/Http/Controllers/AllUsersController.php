@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Detail;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AllUsersController extends Controller
 {
@@ -25,14 +26,20 @@ class AllUsersController extends Controller
     
 
     function addUserDetails(Request $request,$id){
-        $new_profile_pic = time() . '-' .$request->profile_pic . '.' . $request->profile_pic->extension();
-        $request->profile_pic->move(public_path('images'),$new_profile_pic);
+        $user = User::find($id); 
+        $extension = $request->image_extension;
+        $profile_pic = $request->profile_pic_encoded;  // your base64 encoded
+        $profile_pic = str_replace('data:image/'.$extension.';base64,', '', $profile_pic);
+        $profile_pic = str_replace(' ', '+', $profile_pic);
+        $image = base64_decode($profile_pic);
+        $profile_pic_name = time() . '-' .$user->name . '.' . $extension;
+        Storage::disk('public')->put('images/'. $profile_pic_name,$image);
+        // $request->profile_pic->move(public_path('images'),base64_decode($profile_pic));
 
-            $user = User::find($id); 
             $detail = new Detail;
             $detail->gender = $request->gender;
             $detail->description = $request->description;
-            $detail->profile_pic = $new_profile_pic;
+            $detail->profile_pic = 'images/'. $profile_pic_name;
             $detail->location = $request->location;
             $detail->user_id = $user->id;
             $detail->save();

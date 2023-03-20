@@ -1,6 +1,8 @@
 const letsdate_pages = {};
 
 let user_token=localStorage.getItem("token");
+letsdate_pages.base_url = "http://127.0.0.1:8000/api/";
+
 
 let headers = {
   'Content-Type': 'application/json',
@@ -17,7 +19,7 @@ letsdate_pages.authPostAPI = async (api_url) => {
     }catch(error){
       return error.response["statusText"];}}
 
-letsdate_pages.base_url = "http://127.0.0.1:8000/api/";
+
 
 letsdate_pages.getAPI = async (api_url) => {
   try{
@@ -181,17 +183,26 @@ letsdate_pages.load_complete_profile = () => {
 
   let lat=GeolocationCoordinates.latitude;
   let lon=GeolocationCoordinates.longitude;
+  
 
   const getLocation  = async (lat,lon) =>{
     let access_key= "pk.a87f7910165b829681a03e71f7aecf29" ;
-    
+    let city ="";
     let locations_map_url=`https://eu1.locationiq.com/v1/reverse?key=${access_key}&lat=${lat}&lon=${lon}&format=json`;
     const response = await letsdate_pages.getAPI(locations_map_url);
-    const city = response.data.address.city;
+    if(response.data.address.municipality){
+      city = response.data.address.municipality;}
+    else if(response.data.address.village){
+      city = response.data.address.village;
+    }else if(response.data.address.country){
+      city = response.data.address.country;
+    }
     location.innerHTML=`Your location is ${city}`;
     location.style.border="2px solid var(--blue)";
     return city;
   }
+
+
   let profile_pic_encoded =  "";
   profile_pic.addEventListener("change", (event) => {
     const selectedfile = event.target.files;
@@ -200,39 +211,69 @@ letsdate_pages.load_complete_profile = () => {
       const fileReader = new FileReader();
       fileReader.onload = () => {
         const srcData = fileReader.result;
-        profile_pic_encoded = srcData;
+        profile_pic_encoded = 'base64:'+ srcData;
       };
       fileReader.readAsDataURL(imageFile);
     }
   });
 
-  complete_btn.addEventListener("click",async ()=>{
-    if (male.checked == true){
-      gender = male.value;}
-    else if(female.checked == true){
-      gender = female.value;}
-    else{
-      gender =  "";}
-
-    bio = description.value;
-    const city = await getLocation(lat,lon);
-    // console.log(city);
-    // console.log(profile_pic_encoded);
-    token = window.localStorage.getItem("token");
-    const response = await letsdate_pages.authPostAPI(user_id_url);
-    let data = new FormData();
-        data.append('gender',gender);
-        data.append('description',bio);
-        data.append('profile_pic', profile_pic_encoded);
-        data.append('location', city);
 
 
-        for (const value of data.values()) {
-          console.log(value);
-        }
+complete_btn.addEventListener("click",async ()=>{
+      if (male.checked == true){
+        gender = male.value;}
+      else if(female.checked == true){
+        gender = female.value;}
+      else{
+        gender =  "";}
 
-  })
+    const pic_extension = profile_pic.files[0].name;
+    let extension = pic_extension.substring(pic_extension.lastIndexOf('.') + 1);
+      const bio = description.value;
+      const city = await getLocation(lat,lon);
+      token = window.localStorage.getItem("token");
+      const response = await letsdate_pages.authPostAPI(user_id_url);
+
+      if(response == "Unauthorized"){
+        let modal = document.getElementById("myModal");
+        modal.style.display = "block";
+
+      }else{
+      modal.style.display = "none";
+      let data = new FormData();
+          data.append('gender',gender);
+          data.append('description',bio);
+          data.append('image_extension',extension);
+          data.append('profile_pic_encoded', profile_pic_encoded);
+          data.append('location', city);
+
+
+          // for (const value of data.values()) {
+          //   console.log(value);
+          // }
+
+          console.log(response.data.user.id);
+      }
+    })
 
 
 
+
+
+
+
+
+// // When the user clicks the button, open the modal 
+// btn.onclick = function() {
+//   modal.style.display = "block";
+// }
+
+// // When the user clicks on <span> (x), close the modal
+
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
 }
