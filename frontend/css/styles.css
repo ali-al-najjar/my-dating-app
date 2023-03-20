@@ -281,6 +281,7 @@ p.profile_pic_info {
   margin-left: auto;
   margin-top: 4%;
   margin-right: auto;
+  margin-bottom: 5%;
 }
 
 img#profile_pic {
@@ -293,17 +294,25 @@ img#profile_pic {
 #name_filter {
   font-size: 1em;
   padding: 0.5%;
+  border-radius: 3px;
 }
 
 .filters {
-  display: flex;
   align-items: center;
   display: flex;
-  justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
+  margin-left: auto;
+  margin-top: 1%;
+  margin-right: auto;
+}
+
+.filters_section {
   width: 80%;
   margin-left: auto;
-  margin-top: 4%;
+  background-color: var(--lightgray);
+  margin-top: 2%;
   margin-right: auto;
+  padding: 1%;
+  border-radius: 5px;
 }

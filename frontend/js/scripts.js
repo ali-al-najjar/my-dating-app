@@ -65,7 +65,7 @@ letsdate_pages.load_login = () => {
     const user_id_url = letsdate_pages.base_url + "get_user";
     const status = await letsdate_pages.authPostAPI(user_id_url);
     console.log(status)
-    const user_id = status.data.user.id;
+    // const user_id = status.data.user.id;
 
     const login_url = letsdate_pages.base_url + "login";
 
@@ -408,9 +408,9 @@ letsdate_pages.load_users = async() => {
       const markup =`<div class="card" id="card">
       <img id ="profile_pic" src="${item.profile_pic}" alt="">
       <div class="info_container">
-        <h4><b>${item.name}</b></h4> 
-        <p>${item.gender}</p>
-        <p>${item.date_of_birth}</p>
+        <h4><div class="name">${item.name} ${item.last_name}</div></h4> 
+        <p class="gender">${item.gender}</p>
+        <p class="age">${item.date_of_birth}</p>
       </div>
       </div>`
       const element = document.createRange().createContextualFragment(markup);
@@ -425,29 +425,32 @@ letsdate_pages.load_users = async() => {
     const markup =`<div class="card" id="card">
     <img id ="profile_pic" src="${item.profile_pic}" alt="">
     <div class="info_container" id="info_container">
-      <h4><b>${item.name} ${item.last_name}</b></h4> 
-      <p>${item.gender}</p>
-      <p>${item.date_of_birth}</p>
+      <h4><div class="name">${item.name} ${item.last_name}</div></h4> 
+      <p class="gender">${item.gender}</p>
+      <p class="age">${item.date_of_birth}</p>
     </div>
     </div>`
     const element = document.createRange().createContextualFragment(markup);
-    document.querySelector(".users_container").appendChild(element);})
+    document.querySelector(".users_container").appendChild(element);
+  })
 }
+
+
 name_filter = document.querySelector(".name_filter");
 name_filter.addEventListener("keyup",()=>{
-  // var input, filter, ul, li, a, i, txtValue;
+  let users_container = document.querySelector(".users_container");
   let input = document.getElementById("name_filter");
   let filter = input.value.toUpperCase();
-  let card = document.getElementById("info_container");
-  let first_name = card.getElementsByTagName("h4");
-  for (i = 0; i < first_name.length; i++) {
-      h4 = first_name[i].getElementsByTagName("b")[0];
-      console.log(h4);
+  let first_name = users_container.getElementsByTagName("h4");
+  let card = users_container.getElementsByClassName("card");
+  for (i = 0; i < card.length; i++) {
+    console.log(i);
+      h4 = first_name[i].getElementsByClassName("name")[0];
       txtValue = h4.textContent || h4.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        first_name[i].style.display = "";
+        card[i].style.display = "";
       } else {
-        first_name[i].style.display = "none";
+        card[i].style.display = "none";
       }
   }
 })
