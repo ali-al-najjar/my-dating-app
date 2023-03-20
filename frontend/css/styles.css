@@ -277,8 +277,15 @@ p.profile_pic_info {
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+  width: 80%;
+  margin-left: auto;
+  margin-top: 4%;
+  margin-right: auto;
 }
 
 img#profile_pic {
   width: 500px;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
