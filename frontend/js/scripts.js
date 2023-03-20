@@ -161,16 +161,6 @@ letsdate_pages.load_complete_profile = () => {
   const location_btn = document.getElementById("btn_location");
   const complete_btn = document.getElementById("complete_btn");
 
-  const description_data = () =>{return description.value;}
-
-  const gender = () =>{
-    if (male.checked == true){
-      return male.value;}
-    else if(female.checked == true){
-      return female.value;}
-    else{
-      return "";}}
-
   const location = document.getElementById("location");
 
   const userLocation = async () => {
@@ -202,24 +192,47 @@ letsdate_pages.load_complete_profile = () => {
     location.style.border="2px solid var(--blue)";
     return city;
   }
-  
-  complete_btn.addEventListener("click",async ()=>{
-    // console.log(gender());
-    // console.log(description_data());
-    // console.log(profile_pic.files[0]);
-    // console.log(await getLocation(lat,lon));
-    // console.log(window.localStorage.getItem("token"));
-    // token = window.localStorage.getItem("token");
-    const response = await letsdate_pages.authPostAPI(user_id_url);
-    console.log(response.data.user.id)
+  let profile_pic_encoded =  "";
+  profile_pic.addEventListener("change", (event) => {
+    const selectedfile = event.target.files;
+    if (selectedfile.length > 0) {
+      const [imageFile] = selectedfile;
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        const srcData = fileReader.result;
+        profile_pic_encoded = srcData;
+      };
+      fileReader.readAsDataURL(imageFile);
+    }
+  });
 
-//  location.innerHTML= getUserInfo();
-    
-  // let data = new FormData();
-  //       data.append('name',name);
-  //       data.append('last_name',last_name);
-  //       data.append('email', email);
-  //       data.append('password', password);
+  complete_btn.addEventListener("click",async ()=>{
+    if (male.checked == true){
+      gender = male.value;}
+    else if(female.checked == true){
+      gender = female.value;}
+    else{
+      gender =  "";}
+
+    bio = description.value;
+    const city = await getLocation(lat,lon);
+    // console.log(city);
+    // console.log(profile_pic_encoded);
+    token = window.localStorage.getItem("token");
+    const response = await letsdate_pages.authPostAPI(user_id_url);
+    let data = new FormData();
+        data.append('gender',gender);
+        data.append('description',bio);
+        data.append('profile_pic', profile_pic_encoded);
+        data.append('location', city);
+
+
+        for (const value of data.values()) {
+          console.log(value);
+        }
 
   })
+
+
+
 }

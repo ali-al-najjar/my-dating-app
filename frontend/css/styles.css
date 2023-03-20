@@ -208,3 +208,6 @@ input[type="file"] {
   padding: 1%;
   opacity: 0.8;
 }
+p.profile_pic_info {
+  font-size: 13px;
+}
