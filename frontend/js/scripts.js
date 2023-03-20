@@ -256,12 +256,28 @@ complete_btn.addEventListener("click",async ()=>{
 
 
       })
-    
+}
+
+      letsdate_pages.load_users = async() => {
+        const users_api = letsdate_pages.base_url + "allusers";
+        const users = document.querySelector('users_container');
+        const img = document.getElementById('profile_pic')
+        const response = await letsdate_pages.getAPI(users_api);
+        let data = response.data.users;
+        console.log(data);
+        data.forEach((item) => {
+        const markup =`<div class="card">
+        <img id ="profile_pic" src="${item.profile_pic}" alt="Avatar">
+        <div class="info_container">
+          <h4><b>${item.name}</b></h4> 
+          <p>${item.gender}</p> 
+        </div>
+        </div>`
+        const element = document.createRange().createContextualFragment(markup);
+        document.querySelector(".users_container").appendChild(element);
+        console.log(item);})
 
 
 
 
-
-
-
-  }
+      }

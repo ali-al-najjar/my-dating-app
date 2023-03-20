@@ -20,6 +20,7 @@ class AllUsersController extends Controller
     function getAllUsersDetails(){
         $users = DB::table('users')
         ->join('details', 'users.id', '=', 'details.user_id')
+        ->select('users.id','users.name','users.last_name','details.gender','details.description','details.profile_pic','details.location')
         ->get();
         return response()->json([
             "users" => $users
@@ -53,7 +54,7 @@ class AllUsersController extends Controller
             
             $detail->gender = $request->gender;
             $detail->description = $request->description;
-            $detail->profile_pic = 'images/'. $profile_pic_name;
+            $detail->profile_pic = 'http://127.0.0.1:8000/storage/images/'. $profile_pic_name;
             $detail->location = $request->location;
             $detail->user_id = $user->id;
             $detail->save();
