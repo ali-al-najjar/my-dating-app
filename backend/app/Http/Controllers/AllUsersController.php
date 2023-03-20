@@ -34,7 +34,6 @@ class AllUsersController extends Controller
         $image = base64_decode($profile_pic);
         $profile_pic_name = time() . '-' .$user->name . '.' . $extension;
         Storage::disk('public')->put('images/'. $profile_pic_name,$image);
-        // $request->profile_pic->move(public_path('images'),base64_decode($profile_pic));
 
             $detail = new Detail;
             $detail->gender = $request->gender;

@@ -55,13 +55,14 @@ const isValid = (text) => {
       }
     else return true;}
 
+let error = document.getElementById("error");
 
 letsdate_pages.load_login = () => {
   
   const login = async() =>{
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
-    let error = document.getElementById("error");
+    
 
     const login_url = letsdate_pages.base_url + "login";
 
@@ -106,7 +107,6 @@ letsdate_pages.load_register = () => {
     let last_name = document.getElementById("last_name").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
-    let error = document.getElementById("error");
 
     let data = new FormData();
       data.append('name',name);
@@ -211,7 +211,7 @@ letsdate_pages.load_complete_profile = () => {
       const fileReader = new FileReader();
       fileReader.onload = () => {
         const srcData = fileReader.result;
-        profile_pic_encoded = 'base64:'+ srcData;
+        profile_pic_encoded = srcData;
       };
       fileReader.readAsDataURL(imageFile);
     }
@@ -226,54 +226,42 @@ complete_btn.addEventListener("click",async ()=>{
         gender = female.value;}
       else{
         gender =  "";}
-
+    
+    
     const pic_extension = profile_pic.files[0].name;
     let extension = pic_extension.substring(pic_extension.lastIndexOf('.') + 1);
       const bio = description.value;
       const city = await getLocation(lat,lon);
       token = window.localStorage.getItem("token");
-      const response = await letsdate_pages.authPostAPI(user_id_url);
+      const status = await letsdate_pages.authPostAPI(user_id_url);
+      const user_id = status.data.user.id
 
-      if(response == "Unauthorized"){
+      if(status == "Unauthorized"){
         let modal = document.getElementById("myModal");
         modal.style.display = "block";
 
       }else{
-      modal.style.display = "none";
+
       let data = new FormData();
           data.append('gender',gender);
           data.append('description',bio);
           data.append('image_extension',extension);
           data.append('profile_pic_encoded', profile_pic_encoded);
           data.append('location', city);
+        
+          const response = await letsdate_pages.postAPI(`${profile_details_url}/${user_id}`,data);
+          console.log(response);
+
+        }
 
 
-          // for (const value of data.values()) {
-          //   console.log(value);
-          // }
-
-          console.log(response.data.user.id);
-      }
-    })
-
-
-
+      })
+    
 
 
 
 
 
-// // When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
 
-// // When the user clicks on <span> (x), close the modal
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-}
+  }
