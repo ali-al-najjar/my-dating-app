@@ -12,14 +12,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('get_user','getUser');
 
 });
-
-    Route::get('/users', [AllUsersController::class, "getAllUsers"]);
-    Route::get('/allfemaleusers', [AllUsersController::class, "getAllFemaleDetails"]);
-    Route::get('/allmaleusers', [AllUsersController::class, "getAllMaleDetails"]);
-    Route::get('/user/{id}', [AllUsersController::class, "getUserById"]);
-    Route::post('/user_details/{id}/{detail_id}', [AllUsersController::class, "addUserDetails"]);
-    Route::get('/user_gender/{id}', [AllUsersController::class, "getUserGender"]);
-    Route::post('/add_to_favorites/{id}', [AllUsersController::class, "addToFavorites"]);
+Route::controller(AllUsersController::class)->group(function () {
+    Route::get('/users','getAllUsers');
+    Route::get('/allfemaleusers', 'getAllFemaleDetails');
+    Route::get('/allmaleusers', 'getAllMaleDetails');
+    Route::get('/user/{id}', 'getUserById');
+    Route::post('/user_details/{id}/{detail_id}','addUserDetails');
+    Route::get('/user_gender/{id}','getUserGender');
+    Route::post('/add_to_favorites/{id}','addToFavorites');
+    Route::post('/send_message/{id}','sendMessage');
+    Route::get('/get_message/{id}','getMessage');
+});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
