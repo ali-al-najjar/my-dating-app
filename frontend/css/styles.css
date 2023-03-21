@@ -429,3 +429,6 @@ input#location_filter {
   display: flex;
   flex-direction: column;
 }
+.message_container{
+  margin-bottom:2%;
+}

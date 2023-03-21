@@ -64,9 +64,6 @@ letsdate_pages.load_login = () => {
     let password = document.getElementById("password").value;
     const user_id_url = letsdate_pages.base_url + "get_user";
     const status = await letsdate_pages.authPostAPI(user_id_url);
-    console.log(status)
-    // const user_id = status.data.user.id;
-
     const login_url = letsdate_pages.base_url + "login";
 
     let data = new FormData();
@@ -505,14 +502,56 @@ let favorite_url_api = letsdate_pages.base_url+"add_to_favorites";
     }
   
     letsdate_pages.load_inbox = async() => {
-        
+    const send_message_api = letsdate_pages.base_url + "send_message";
+    const get_message_api = letsdate_pages.base_url + "get_message";
+    const user_id_url = letsdate_pages.base_url + "get_user";
+    const status = await letsdate_pages.authPostAPI(user_id_url);
+    const user_id = status.data.user.id;
+    console.log(user_id)
+    const response = await letsdate_pages.getAPI(`${get_message_api}/${user_id}`);
+    messages_received = response.data.messages;
+    messages_received.forEach((message) =>{
+    const markup=`
+    <div class="message_container">
+    <div class="message_sender">${message.name} ${message.last_name}</div>
+    <div class="message_content">${message.message}</div>
+    <div class="message_date">${message.created_at}</div>
+    <div class="message_sent">
+      <div class="message_sent_content"></div>
+    </div>
+    <div class="message_section">
+    <input type="text" class ="message" id="message_${message.sender}">
+    <button class="send_btn btn" id =${message.sender}>Send</button>
+  
+  </div>
+    <div>`
+    console.log(response);
+    const element = document.createRange().createContextualFragment(markup);
+    document.querySelector(".message_received").appendChild(element);
+    
+    })
 
-
-
-
-
-
-    }
+    let new_message = document.querySelectorAll(".message");
+    let buttons = document.querySelectorAll('.send_btn');
+    new_message.forEach((message)=>{
+      message.addEventListener("input",(e)=>{
+        let value = e.target.value;
+        console.log(value);
+        buttons.forEach((button)=>{
+          button.addEventListener("click",async (e)=>{
+            let receiver_id = e.target.id;
+            console.log(message);
+            let data = new FormData;
+            data.append("receiver_id",receiver_id);
+            data.append("message",message);
+            const response = await letsdate_pages.postAPI(`${send_message_api}/${user_id}`,data);
+            console.log(response);
+    })
+     })
+  
+    })
+  })
+}
         
 
 
