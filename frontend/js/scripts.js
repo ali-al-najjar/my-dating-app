@@ -503,6 +503,16 @@ let favorite_url_api = letsdate_pages.base_url+"add_to_favorites";
       })}
   )
     }
+  
+    letsdate_pages.load_inbox = async() => {
+        
+
+
+
+
+
+
+    }
         
 
 

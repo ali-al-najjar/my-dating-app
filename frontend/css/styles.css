@@ -37,7 +37,7 @@ html *{
 }
 
 .logo {
-  width: 90%;
+  width: 20%;
   display: flex;
   justify-content: flex-start;
   gap: 1%;
@@ -45,6 +45,12 @@ html *{
   font-size:2.5em;
   color:var(--blue);
   font-weight:bold;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
 .container {
@@ -370,3 +376,56 @@ input#location_filter {
   transition: 0.3s;
 }
 
+.inbox img {
+  width: 20px;
+}
+
+.inbox {
+  display: flex;
+  align-items: center;
+}
+
+
+.messages_container {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.messages{
+  background-color: var(--lightgray);
+  padding:2%;
+}
+.message_received {
+  margin-bottom: 2%;
+}
+.message_sent{
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.message_sender {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 2%;
+  text-decoration: underline;
+}
+
+.message_date {
+  opacity: 0.5;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.message_content {
+  margin-bottom: 2%;
+}
+
+.message_section {
+  display: flex;
+  flex-direction: column;
+}

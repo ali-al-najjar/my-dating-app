@@ -112,7 +112,7 @@ class AllUsersController extends Controller
     function getMessage($id){
         $messages = DB::table('users')
         ->join('messages', 'users.id', '=', 'messages.sender')
-        ->select('messages.sender','messages.receiver','messages.message')
+        ->select('users.id','users.name','users.last_name','messages.sender','messages.receiver','messages.message','messages.created_at')
         ->where('users.id','=',$id)
         ->get();
         return response()->json([

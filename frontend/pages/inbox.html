@@ -12,26 +12,34 @@
 <navbar class="navigation">
   <div class = "logo"><img src="../assets/logo.svg">Let's Date</div>
   <div class="links">
-  <a class="inbox" href="./inbox.html"><img src="../assets/inbox.svg"> Inbox</a> |
-  <a class="edit_profile" href="./edit_profile.html">Edit profile</a> |
+  <a class="logout" href="./users.html">Find your match</a> | 
+  <a class="logout" href="./edit_profile.html">Edit profile</a> | 
   <a class="logout" href="../index.html">Log out</a>
 </div>
 </navbar>
-<div class="filters_section">
-  <h2>Filters</h2>
-  <div class="filters">
-  <input type="text" class ="name_filter" id="name_filter" placeholder="Search by name.." title="Type in a name">
-  <input type="text" class ="dropdown-content" id="location_filter" placeholder="Search by location: Beirut,Lebanon etc .." title="Type in a name">
+<div class="messages_container">
+  <div class="messages">
+  <div class="message_received">
+    <div class="message_sender">Ali Najjar</div>
+    <div class="message_content">Hello, How are you?</div>
+    <div class="message_date">21/3/2023</div>
+  </div>
+  <div class="message_sent">
+    <div class="message_sent_content">Hello, How are you?</div>
+  </div>
+  <div class="message_section">
+  <input type="text" class ="message" id="message">
+  <button class="btn send_btn">Send</button>
+
 </div>
 </div>
 </div>
-<div class="users_container">
   
 </div>
 <script src="../js/axios.min.js"></script>
 <script src ="../js/scripts.js"></script>
 <script>
-  letsdate_pages.loadFor("users");
+  letsdate_pages.loadFor("inbox");
 </script>
 </body>
 </html>
