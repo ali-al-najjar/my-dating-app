@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Detail;
+use App\Models\Favorite;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -84,7 +85,17 @@ class AllUsersController extends Controller
             ]);
         }
 
+    function addToFavorites(Request $request,$id){
+        $favorite = new Favorite();
+        $user = User::find($id);
+        $favorite->user_id = $user->id;
+        $favorite->user_id_liked = $request->id;
+        $favorite->save();
 
+        return response()->json([
+            "favorite" => true
+        ]);
+    }
         
     }
 

@@ -19,6 +19,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/user/{id}', [AllUsersController::class, "getUserById"]);
     Route::post('/user_details/{id}/{detail_id}', [AllUsersController::class, "addUserDetails"]);
     Route::get('/user_gender/{id}', [AllUsersController::class, "getUserGender"]);
+    Route::post('/add_to_favorites/{id}', [AllUsersController::class, "addToFavorites"]);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
