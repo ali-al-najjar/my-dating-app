@@ -413,11 +413,28 @@ letsdate_pages.load_users = async() => {
         <p class="gender">${item.gender}</p>
         <p class="age">${item.date_of_birth}</p>
         <p class="description">${item.description}</p>
+        <div class="favorite_icon" id="favorite_icon"><img src="../assets/favorite.svg"></div>
       </div>
       </div>`
       const element = document.createRange().createContextualFragment(markup);
       document.querySelector(".users_container").appendChild(element);
+      console.log(item.id);
         })
+
+        let favorites = document.querySelectorAll(".favorite_icon");
+        let users_container = document.querySelector(".users_container");
+        let favorite_url_api = letsdate_pages.base_url+"add_to_favorites";
+          favorites.forEach(button=>{ 
+            button.addEventListener("click", async () =>{
+            
+            let data = new FormData();
+            data.append('id',item.id)
+            const response = await letsdate_pages.postAPI(`${favorite_url_api}/${user_id}`);
+            console.log(response);
+            console.log(button);
+        });
+
+              })
 }
         
   else{
@@ -432,10 +449,24 @@ letsdate_pages.load_users = async() => {
       <p class="gender">${item.gender}</p>
       <p class="age">${item.date_of_birth}</p>
       <p class="description">${item.description}</p>
+      <div class="favorite_icon" id="favorite_icon"><img src="../assets/favorite.svg"></div>
     </div>
     </div>`
     const element = document.createRange().createContextualFragment(markup);
     document.querySelector(".users_container").appendChild(element);
+    // let favorites = document.querySelectorAll(".favorite_icon");
+    // let users_container = document.querySelector(".users_container");
+    // let favorite_url_api = letsdate_pages.base_url+"add_to_favorites";
+    //   favorites.forEach(button=>{ 
+    //     button.addEventListener("click", async () =>{
+        
+    //     let data = new FormData();
+    //     data.append
+    //     const response = await letsdate_pages.postAPI(favorite_url_api);
+    //     console.log(button);
+    // });
+
+    //       })
   })
 }
 
@@ -479,7 +510,20 @@ dropdown_filter.addEventListener("keyup",()=>{
   }
 })
 
-      }
+// let favorites = document.querySelectorAll(".favorite_icon");
+// let users_container = document.querySelector(".users_container");
+// let favorite_url_api = letsdate_pages.base_url+"add_to_favorites";
+//   favorites.forEach(button=>{ 
+//     button.addEventListener("click", async () =>{
+    
+//     let data = new FormData();
+//     data.append
+//     const response = await letsdate_pages.postAPI(favorite_url_api);
+//     console.log(button);
+// });
+
+//       })
+    }
         
 
 
