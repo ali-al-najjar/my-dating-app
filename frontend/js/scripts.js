@@ -408,9 +408,11 @@ letsdate_pages.load_users = async() => {
       const markup =`<div class="card" id="card">
       <img id ="profile_pic" src="${item.profile_pic}" alt="">
       <div class="info_container">
-        <h4><div class="name">${item.name} ${item.last_name}</div></h4> 
+        <h4><div class="name">${item.name} ${item.last_name}</div></h4>
+        <p class="location">${item.location}</p> 
         <p class="gender">${item.gender}</p>
         <p class="age">${item.date_of_birth}</p>
+        <p class="description">${item.description}</p>
       </div>
       </div>`
       const element = document.createRange().createContextualFragment(markup);
@@ -425,9 +427,11 @@ letsdate_pages.load_users = async() => {
     const markup =`<div class="card" id="card">
     <img id ="profile_pic" src="${item.profile_pic}" alt="">
     <div class="info_container" id="info_container">
-      <h4><div class="name">${item.name} ${item.last_name}</div></h4> 
+      <h4><div class="name">${item.name} ${item.last_name}</div></h4>
+      <p class="location">${item.location}</p>
       <p class="gender">${item.gender}</p>
       <p class="age">${item.date_of_birth}</p>
+      <p class="description">${item.description}</p>
     </div>
     </div>`
     const element = document.createRange().createContextualFragment(markup);
@@ -454,6 +458,27 @@ name_filter.addEventListener("keyup",()=>{
       }
   }
 })
+
+dropdown_filter = document.querySelector(".dropdown-content");
+dropdown_filter.addEventListener("keyup",()=>{
+  let users_container = document.querySelector(".users_container");
+  let input = document.getElementById("location_filter");
+  let filter = input.value.toUpperCase();
+  let location = users_container.getElementsByClassName("location");
+  let card = users_container.getElementsByClassName("card");
+  let p = users_container.getElementsByTagName('p');
+  for (i = 0; i < location.length; i++) {
+    console.log(location[i]);
+    txtValue = location[i].textContent || location[i].innerText;
+    console.log(txtValue);
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      card[i].style.display = "";
+    } else {
+      card[i].style.display = "none";
+    }
+  }
+})
+
       }
         
 
