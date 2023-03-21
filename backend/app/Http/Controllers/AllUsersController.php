@@ -108,6 +108,18 @@ class AllUsersController extends Controller
             "sent" => true
         ]);
     }
+
+    function getMessage($id){
+        $messages = DB::table('users')
+        ->join('messages', 'users.id', '=', 'messages.sender')
+        ->select('messages.sender','messages.receiver','messages.message')
+        ->where('users.id','=',$id)
+        ->get();
+        return response()->json([
+            "messages" => $messages
+        ]);
+    }
         
     }
+
 
