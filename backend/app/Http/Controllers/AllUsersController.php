@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Detail;
 use App\Models\Favorite;
-use App\Models\Image;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -94,6 +94,18 @@ class AllUsersController extends Controller
 
         return response()->json([
             "favorite" => true
+        ]);
+    }
+    function sendMessage(Request $request,$id){
+        $message = new Message();
+        $user = User::find($id);
+        $message->sender = $user->id;
+        $message->receiver = $request->receiver_id;
+        $message->message = $request->message;
+        $message->save();
+
+        return response()->json([
+            "sent" => true
         ]);
     }
         
